@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Corrige Aí</string>
+    <string name="app_tagline">MAIS CIDADE. MENOS PROBLEMA.</string>
+
+    <string name="welcome_back">BEM-VINDO DE VOLTA</string>
+    <string name="access_account">Acesse\nsua conta</string>
+    <string name="label_email">E-MAIL</string>
+    <string name="label_password">SENHA</string>
+    <string name="hint_email">seu@email.com</string>
+    <string name="hint_password">••••••••</string>
+    <string name="forgot_password">Esqueceu a senha?</string>
+    <string name="enter">ENTRAR</string>
+    <string name="continue_with">ou continue com</string>
+    <string name="no_account">Não tem conta? </string>
+    <string name="create_now">Criar agora</string>
+
+    <string name="new_user">NOVO USUÁRIO</string>
+    <string name="create_free_account">Crie sua\nconta grátis</string>
+    <string name="label_full_name">NOME COMPLETO</string>
+    <string name="hint_full_name">João Silva</string>
+    <string name="label_confirm_password">CONFIRMAR SENHA</string>
+    <string name="hint_min_chars">Min. 8 caracteres</string>
+    <string name="hint_repeat_password">Repita a senha</string>
+    <string name="agree_terms_prefix">Concordo com os </string>
+    <string name="terms_of_use">Termos de Uso</string>
+    <string name="and_word"> e a </string>
+    <string name="privacy_policy">Política de Privacidade</string>
+    <string name="create_account">CRIAR CONTA</string>
+    <string name="already_have_account">Já tem uma conta? </string>
+    <string name="login_link">Entrar</string>
+    <string name="back">Voltar</string>
+</resources>

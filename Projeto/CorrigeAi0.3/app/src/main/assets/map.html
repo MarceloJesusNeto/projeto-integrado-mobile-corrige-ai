@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Corrige Aí - Mapa</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #0D0D0D;
+        }
+
+        .legend {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            z-index: 1000;
+            background-color: rgba(28, 28, 30, 0.95);
+            border: 1px solid #2C2C2E;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-family: sans-serif;
+            font-size: 12px;
+            color: #FFFFFF;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .legend-item:first-child {
+            margin-top: 0;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+            display: inline-block;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background-color: #1C1C1E;
+            color: #FFFFFF;
+            border-radius: 10px;
+        }
+
+        .leaflet-popup-tip {
+            background-color: #1C1C1E;
+        }
+
+        .popup-title {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .popup-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 20px;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-dot" style="background-color:#F2B01E;"></span>
+            Sem iluminação
+        </div>
+        <div class="legend-item">
+            <span class="legend-dot" style="background-color:#E5484D;"></span>
+            Problema na via
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Centralizado no Distrito Federal
+        var map = L.map('map', { zoomControl: true }).setView([-15.7801, -47.9292], 11);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap &copy; CARTO',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Dados de exemplo (mock) - depois isso viria do banco de dados
+        var pontos = [
+            { lat: -15.7942, lng: -47.8822, tipo: 'iluminacao', titulo: 'Eixo Monumental', desc: 'Trecho sem iluminação há 2 semanas.' },
+            { lat: -15.8330, lng: -48.0559, tipo: 'via', titulo: 'Taguatinga Centro', desc: 'Buraco grande na pista, próximo ao ponto de ônibus.' },
+            { lat: -15.8151, lng: -48.1074, tipo: 'iluminacao', titulo: 'Ceilândia Sul', desc: 'Postes apagados na quadra QNM 15.' },
+            { lat: -15.8347, lng: -48.0186, tipo: 'via', titulo: 'Águas Claras', desc: 'Asfalto danificado após as chuvas.' },
+            { lat: -15.6530, lng: -47.7969, tipo: 'iluminacao', titulo: 'Sobradinho', desc: 'Rua totalmente escura à noite.' },
+            { lat: -16.0173, lng: -48.0592, tipo: 'via', titulo: 'Gama', desc: 'Via esburacada, risco para motos.' },
+            { lat: -15.8752, lng: -48.0902, tipo: 'iluminacao', titulo: 'Samambaia', desc: 'Sem iluminação na quadra QR 415.' },
+            { lat: -15.6209, lng: -47.6547, tipo: 'via', titulo: 'Planaltina', desc: 'Problema no asfalto na entrada da cidade.' },
+            { lat: -15.8267, lng: -47.9702, tipo: 'iluminacao', titulo: 'Guará', desc: 'Postes queimados na EQ 5/7.' },
+            { lat: -16.0139, lng: -48.0170, tipo: 'via', titulo: 'Santa Maria', desc: 'Buraco na pista principal.' }
+        ];
+
+        var cores = {
+            iluminacao: '#F2B01E',
+            via: '#E5484D'
+        };
+
+        var labels = {
+            iluminacao: 'SEM ILUMINAÇÃO',
+            via: 'PROBLEMA NA VIA'
+        };
+
+        pontos.forEach(function (p) {
+            var marker = L.circleMarker([p.lat, p.lng], {
+                radius: 9,
+                fillColor: cores[p.tipo],
+                color: '#0D0D0D',
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.95
+            }).addTo(map);
+
+            var tagColorBg = p.tipo === 'iluminacao' ? '#F2B01E' : '#E5484D';
+            var tagColorText = p.tipo === 'iluminacao' ? '#000000' : '#FFFFFF';
+
+            var popupHtml =
+                '<div>' +
+                '<span class="popup-tag" style="background-color:' + tagColorBg + '; color:' + tagColorText + ';">' + labels[p.tipo] + '</span><br/>' +
+                '<div class="popup-title">' + p.titulo + '</div>' +
+                '<div>' + p.desc + '</div>' +
+                '</div>';
+
+            marker.bindPopup(popupHtml);
+        });
+    </script>
+</body>
+</html>
